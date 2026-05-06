@@ -20,7 +20,7 @@ actor WESMService {
     static let shared = WESMService()
 
     private let endpoint = URL(string:
-        "https://fca56e6b-9cee-4c14-b6da-8b099f224303-00-1hvq6fpq2mbky.spock.replit.dev/api/luzon-price"
+        "https://code-number-api--estialesti.replit.app/"
     )!
 
     /// Fetches the current Luzon LMP.
