@@ -95,7 +95,7 @@ private struct HeroHeaderView: View {
 
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .center) {
-                    Text("GridWatch")
+                    Text("Manihala")
                         .font(.system(size: 15, weight: .semibold))
                         .foregroundStyle(.white.opacity(0.85))
                     Spacer()
