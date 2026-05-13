@@ -39,6 +39,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         UNUserNotificationCenter.current().delegate = self
 
+        // Register for remote (APNs) push notifications
+        application.registerForRemoteNotifications()
+
         // Register background fetch task
         BGTaskScheduler.shared.register(
             forTaskWithIdentifier: "com.gridwatch.pricefetch",
@@ -48,6 +51,18 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
 
         return true
+    }
+
+    // APNs gave us a token — send it to Replit
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Task { await PushRegistrationService.registerToken(deviceToken) }
+    }
+
+    // APNs registration failed — log it
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("[Push] APNs registration failed: \(error)")
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
